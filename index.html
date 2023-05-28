@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unit Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .converter {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .input-group {
+            margin: 0 10px;
+        }
+
+        .input-group input {
+            width: 100px;
+            padding: 5px;
+        }
+
+        .input-group select {
+            padding: 5px;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+    <h1>Unit Converter</h1>
+
+    <div class="converter">
+        <div class="input-group">
+            <input type="number" id="inputValue">
+            <select id="inputUnit">
+                <option value="cm">cm</option>
+                <option value="inch">inch</option>
+                <option value="meter">meter</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <input type="number" id="outputValue" readonly>
+            <select id="outputUnit">
+                <option value="cm">cm</option>
+                <option value="inch">inch</option>
+                <option value="meter">meter</option>
+            </select>
+        </div>
+
+        <button onclick="convert()">Convert</button>
+    </div>
+    <div class="result">
+        <p id="resultText"></p>
+    </div>
+</div>
+    <script>
+        function convert() {
+            const inputValue = document.getElementById("inputValue").value;
+            const inputUnit = document.getElementById("inputUnit").value;
+            const outputUnit = document.getElementById("outputUnit").value;
+            let result;
+
+            if (inputUnit === outputUnit) {
+                result = inputValue;
+            } else if (inputUnit === "cm" && outputUnit === "inch") {
+                result = inputValue / 2.54;
+            } else if (inputUnit === "inch" && outputUnit === "cm") {
+                result = inputValue * 2.54;
+            } else if (inputUnit === "cm" && outputUnit === "meter") {
+                result = inputValue / 100;
+            } else if (inputUnit === "meter" && outputUnit === "cm") {
+                result = inputValue * 100;
+            } else if (inputUnit === "inch" && outputUnit === "meter") {
+                result = inputValue * 0.0254;
+            } else if (inputUnit === "meter" && outputUnit === "inch") {
+                result = inputValue * 39.37;
+            }
+
+            document.getElementById("outputValue").value = result.toFixed(2);
+            document.getElementById("resultText").innerText = `${inputValue} ${inputUnit} is equal to ${result.toFixed(2)} ${outputUnit}.`;
+        }
+    </script>
+</body>
+</html>
